@@ -3,3 +3,5 @@
 learn upload html & css using sample from progate
 
 for education only
+
+add label PR
