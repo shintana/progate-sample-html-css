@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Notify slack
         env:
-          SLACK_GITBOT_TOKEN: ${{ secrets.SLACK_GITBOT_TOKEN }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: pullreminders/slack-action@master
         with:
           args: '{\"channel\":\"C02LV4R4X4Z\",\"text\":\"Hello world\"}'
