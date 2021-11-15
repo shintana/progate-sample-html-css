@@ -12,7 +12,8 @@ jobs:
     steps:
 #       - uses: actions/checkout@v2
       - name: Notify slack
-      - uses: 8398a7/action-slack@v3
+#         uses: 8398a7/action-slack@v3
+        uses: pullreminders/slack-action@master
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,action,eventName,ref,workflow,job,took,pullRequest # selectable (default: repo,message)
