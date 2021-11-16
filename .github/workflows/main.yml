@@ -10,8 +10,7 @@ jobs:
   notifySlack:
     runs-on: ubuntu-latest
     
-#     if: ${{ github.event.label.name == 'need-approval' }}
-    if: ${{ github.event.pull_request.user.login == 'shintana' }}
+    if: ${{ github.event.label.name == 'need-approval' }} && ${{ github.event.pull_request.user.login == 'shintana' }}
     steps:
       - name: Notify PIC makpiti
         uses: pullreminders/slack-action@master
