@@ -7,7 +7,7 @@ branding:
   color: 'blue'
 
 inputs:
-  slack-oauth-token: ${{ secrets.SLACK_WEBHOOK_URL }}
+  SLACK_WEBHOOK_URL: 
     description: 'Slack token for users mention'
     
 outputs:
@@ -32,5 +32,5 @@ runs:
       shell: bash
       id: slack-username-generator
       run: |
-        userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ inputs.slack-oauth-token }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
+        userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ inputs.SLACK_WEBHOOK_URL }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
         echo "::set-output name=userID::${userID}"
