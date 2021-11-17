@@ -14,9 +14,9 @@ outputs:
   git-email:
     description: "Email of committed person"
     value: ${{ steps.committed-email-generator.outputs.email }}
-  slack-username:
-    description: "Slack username of committed person"
-    value: ${{ steps.slack-username-generator.outputs.userID }}
+  slack-userID:
+    description: "Slack userID of committed person"
+    value: ${{ steps.slack-userID-generator.outputs.userID }}
     
 runs:
   using: "composite"
@@ -28,7 +28,7 @@ runs:
         email=$(git log -1 --pretty=format:"%ce" $GITHUB_SHA)
         echo "::set-output name=email::${email}"
 
-    - name: Check slack username with email
+    - name: Check slack userID with email
       shell: bash
       id: slack-userID-generator
       run: |
