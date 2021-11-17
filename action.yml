@@ -5,15 +5,7 @@ description: 'This action creates a string that mentions all the reviewers for a
 branding:
   icon: 'users'  
   color: 'blue'
-  
-inputs:
-  slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-    description: 'Slack URL for webhook'
-    required: true
-  slack-oauth-token: ${{ secrets.SLACK_USER_TOKEN }}
-    description: 'Slack token for users mention'
-    required: false
-    
+
 outputs:
   git-email:
     description: "Email of committed person"
@@ -36,5 +28,5 @@ runs:
       shell: bash
       id: slack-username-generator
       run: |
-        userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ inputs.SLACK_USER_TOKEN }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
+        userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ secrets.SLACK_WEBHOOK_URL  }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
         echo "::set-output name=userID::${userID}"
