@@ -31,11 +31,10 @@ runs:
       run: |
         email=$(git log -1 --pretty=format:"%ce" $GITHUB_SHA)
         echo "::set-output name=email::${email}"
-	
+
     - name: Check slack username with email
       shell: bash
       id: slack-username-generator
       run: |
         userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ inputs.SLACK_USER_TOKEN }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
         echo "::set-output name=userID::${userID}"
-	
