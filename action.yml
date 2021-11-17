@@ -7,10 +7,10 @@ branding:
   color: 'blue'
   
 inputs:
-  SLACK_WEBHOOK_URL:
+  slack-url:
     description: 'Slack URL for webhook'
     required: true
-  SLACK_USER_TOKEN:
+  slack-oauth-token:
     description: 'Slack token for users mention'
     required: false
     
@@ -28,6 +28,9 @@ runs:
     - name: Check email of committed person
       shell: bash
       id: committed-email-generator
+      with:
+        slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        slack-oauth-token: ${{ secrets.SLACK_USER_TOKEN }}
       run: |
         email=$(git log -1 --pretty=format:"%ce" $GITHUB_SHA)
         echo "::set-output name=email::${email}"
@@ -35,6 +38,9 @@ runs:
     - name: Check slack username with email
       shell: bash
       id: slack-username-generator
+      with:
+        slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        slack-oauth-token: ${{ secrets.SLACK_USER_TOKEN }}
       run: |
         userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ inputs.SLACK_USER_TOKEN }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
         echo "::set-output name=userID::${userID}"
