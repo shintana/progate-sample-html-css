@@ -12,33 +12,35 @@ jobs:
     
     if: ${{ github.event.label.name == 'need-approval' }}
     steps:
-#       - name: Check email of committed person
-#         shell: bash
-#         id: committed-email-generator
-#         run: |
-#           email=$(git log -1 --pretty=format:"%ce" $GITHUB_SHA)
-#           echo "::set-output name=email::${email}"
+      - uses: actions/checkout@v1
+      - name: Check email of committed person
+        uses: ./
+        id: committed-email-generator
           
-#       - name: Check slack userID with email
-#         shell: bash
-#         id: slack-userID-generator
-#         run: |
-#           userID=$(curl -s --no-progress-meter "https://slack.com/api/users.lookupByEmail?token=${{ secrets.SLACK_USER_TOKEN }}&email=${{ steps.committed-email-generator.outputs.email }}" | jq -r '.user.id')
-#           echo "::set-output name=userID::${userID}"
+      - name: Check slack userID with email
+        uses: ./
+        id: slack-userID-generator
+          
+      - name: Mention reviewers
+        uses: pullreminders/slack-action@master
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          args: comment "${{ steps.slack-userID-generator.outputs.mentions }} your review has been requested ⏳"
         
-      - name: Notify PIC makpiti
-        if: ${{ github.event.pull_request.user.login == 'shintana' || github.event.pull_request.user.login == 'snarizky'}}
-        uses: pullreminders/slack-action@master
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        with:
-          args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* ${{ github.event.pull_request.user.login }}\n*Reviewer:* <@U02MG3SFN58>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
+#       - name: Notify PIC makpiti
+#         if: ${{ github.event.pull_request.user.login == 'shintana' || github.event.pull_request.user.login == 'snarizky'}}
+#         uses: pullreminders/slack-action@master
+#         env:
+#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#         with:
+#           args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* ${{ github.event.pull_request.user.login }}\n*Reviewer:* <@U02MG3SFN58>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
     
-      - name: Notify PIC shintana
-        if: ${{ github.event.pull_request.user.login == 'kopimakpiti' }}
-        uses: pullreminders/slack-action@master
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        with:
-          args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* ${{ github.event.pull_request.user.login }}\n*Reviewer:* <@U02L1RXG8LX>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
+#       - name: Notify PIC shintana
+#         if: ${{ github.event.pull_request.user.login == 'kopimakpiti' }}
+#         uses: pullreminders/slack-action@master
+#         env:
+#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#         with:
+#           args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* ${{ github.event.pull_request.user.login }}\n*Reviewer:* <@U02L1RXG8LX>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
 
