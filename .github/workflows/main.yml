@@ -26,7 +26,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          args: comment "${{ steps.slack-userID-generator.outputs.mentions }} your review has been requested ⏳"
+          args: comment "${{ steps.slack-userID-generator.outputs.userID }} your review has been requested ⏳"
         
 #       - name: Notify PIC makpiti
 #         if: ${{ github.event.pull_request.user.login == 'shintana' || github.event.pull_request.user.login == 'snarizky'}}
