@@ -21,12 +21,12 @@ runs:
       shell: bash
       id: committed-slack-generator
       run: |
-        slackid=$(echo "$(cat test.json)" | jq '.${{ github.event.pull_request.user.login }}')
+        slackid=$(echo "$(cat test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=slackid::${slackid}"
         
     - name: Check reviewer of committed person
       shell: bash
       id: reviewer-generator
       run: |
-        reviewer=$(echo "$(cat reviewer.json)" | jq '.${{ github.event.pull_request.user.login }}')
+        reviewer=$(echo "$(cat test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
         echo "::set-output name=reviewer::${reviewer}"
