@@ -22,8 +22,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* <@${{ steps.committed-slack-generator.outputs.slackid }}>\n*Reviewer:* <@U02MG3SFN58>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
-#           args: comment "${{ steps.committed-slack-generator.outputs.slackid }} your review has been requested ⏳"
+          args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* <@${{ steps.committed-slack-generator.outputs.slackid }}>\n*Reviewer:* <@U02MG4D82H1>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
         
 #       - name: Notify PIC makpiti
 #         if: ${{ github.event.pull_request.user.login == 'shintana' || github.event.pull_request.user.login == 'snarizky'}}
