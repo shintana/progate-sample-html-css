@@ -10,6 +10,9 @@ outputs:
   slackid:
     description: "Slack of committed person"
     value: ${{ steps.committed-slack-generator.outputs.slackid }}
+  reviewer:
+    description: "Reviewer of committed person"
+    value: ${{ steps.reviewer-generator.outputs.reviewer }}
     
 runs:
   using: "composite"
@@ -20,3 +23,10 @@ runs:
       run: |
         slackid=$(echo "$(cat test.json)" | jq '.${{ github.event.pull_request.user.login }}')
         echo "::set-output name=slackid::${slackid}"
+        
+    - name: Check reviewer of committed person
+      shell: bash
+      id: reviewer-generator
+      run: |
+        reviewer=$(echo "$(cat reviewer.json)" | jq '.${{ github.event.pull_request.user.login }}')
+        echo "::set-output name=reviewer::${reviewer}"
