@@ -9,14 +9,14 @@ branding:
 outputs:
   slackid:
     description: "Slack of committed person"
-    value: ${{ steps.committed-email-generator.outputs.slackid }}
+    value: ${{ steps.committed-slack-generator.outputs.slackid }}
     
 runs:
   using: "composite"
   steps:
-    - name: Check email of committed person
+    - name: Check slack of committed person
       shell: bash
-      id: committed-email-generator
+      id: committed-slack-generator
       run: |
         slackid=$(echo "$(cat test.json)" | jq '.test')
         echo "::set-output name=slackid::${slackid}"
