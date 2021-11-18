@@ -15,11 +15,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Check email of committed person
         uses: ./
-        id: committed-email-generator
-          
-      - name: Check slack userID with email
-        uses: ./
-        id: slack-userID-generator
+        id: committed-slack-generator
           
       - name: Mention reviewers
         uses: pullreminders/slack-action@master
@@ -27,7 +23,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
 #           args: '{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }}\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Status:* `Need Approval`\n*Author:* ${{ github.event.pull_request.user.login }}\n*Reviewer:* <@${{ steps.slack-userID-generator.outputs.userID }}>\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }}|View Pull Request>\"}}]}'
-          args: comment "${{ steps.slack-userID-generator.outputs.slackid }} your review has been requested ⏳"
+          args: comment "${{ steps.committed-slack-generator.outputs.slackid }} your review has been requested ⏳"
         
 #       - name: Notify PIC makpiti
 #         if: ${{ github.event.pull_request.user.login == 'shintana' || github.event.pull_request.user.login == 'snarizky'}}
