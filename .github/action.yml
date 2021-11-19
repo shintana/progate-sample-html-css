@@ -2,31 +2,28 @@
 
 name: Mention Contributor and Reviewer
 description: 'This action mention the contributor and reviewer for a pull request.'
-# branding:
-#   icon: 'users'  
-#   color: 'blue'
     
 outputs:
   contributorID:
     description: "Slack ID of contributor"
-    value: ${{ steps.contributor-generator.outputs.contributorID }}
+    value: ${{ steps.get-contributor-slack.outputs.contributorID }}
   reviewerID:
     description: "Slack ID of reviewer"
-    value: ${{ steps.reviewer-generator.outputs.reviewerID }}
+    value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
     
 runs:
   using: "composite"
   steps:
     - name: Check slack ID of contributor
       shell: bash
-      id: contributor-generator
+      id: get-contributor-slack
       run: |
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=contributorID::${contributorID}"
         
     - name: Check slack ID of reviewer
       shell: bash
-      id: reviewer-generator
+      id: get-reviewer-slack
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
         echo "::set-output name=reviewerID::${reviewerID}"
