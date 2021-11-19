@@ -13,11 +13,11 @@ jobs:
     if: ${{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
-      - name: Check email of committed person
+      - name: Extract contributor ID info
         uses: ./.github
         id: get-contributor-slack
         
-      - name: Check reviewer of committed person
+      - name: Extract reviewer ID info
         uses: ./.github
         id: get-reviewer-slack
           
