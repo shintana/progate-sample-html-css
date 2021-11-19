@@ -1,30 +1,30 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Slack Notifications
-description: 'This action creates a string that mentions all the reviewers for a pull request.'
-branding:
-  icon: 'users'  
-  color: 'blue'
+name: Need Approval Notification
+description: 'This action mention the reviewer for a pull request with need-approval label.'
+# branding:
+#   icon: 'users'  
+#   color: 'blue'
     
 outputs:
-  slackid:
-    description: "Slack of committed person"
-    value: ${{ steps.committed-slack-generator.outputs.slackid }}
-  reviewer:
-    description: "Reviewer of committed person"
-    value: ${{ steps.reviewer-generator.outputs.reviewer }}
+  contributorID:
+    description: "Slack ID of contributor"
+    value: ${{ steps.contributor-generator.outputs.contributorID }}
+  reviewerID:
+    description: "Slack ID of reviewer"
+    value: ${{ steps.reviewer-generator.outputs.reviewerID }}
     
 runs:
   using: "composite"
   steps:
-    - name: Check slack of committed person
+    - name: Check slack ID of contributor
       shell: bash
-      id: committed-slack-generator
+      id: contributor-generator
       run: |
         slackid=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=slackid::${slackid}"
         
-    - name: Check reviewer of committed person
+    - name: Check slack ID of reviewer
       shell: bash
       id: reviewer-generator
       run: |
