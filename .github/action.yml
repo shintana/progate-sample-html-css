@@ -21,12 +21,12 @@ runs:
       shell: bash
       id: contributor-generator
       run: |
-        slackid=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
-        echo "::set-output name=slackid::${slackid}"
+        contributorID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
+        echo "::set-output name=contributorID::${contributorID}"
         
     - name: Check slack ID of reviewer
       shell: bash
       id: reviewer-generator
       run: |
-        reviewer=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
-        echo "::set-output name=reviewer::${reviewer}"
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
+        echo "::set-output name=reviewerID::${reviewerID}"
