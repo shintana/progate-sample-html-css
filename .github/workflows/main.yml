@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Check email of committed person
-        uses: ./github
+        uses: ./.github
         id: committed-slack-generator
         
       - name: Check reviewer of committed person
-        uses: ./github
+        uses: ./.github
         id: reviewer-generator
           
       - name: Mention author
