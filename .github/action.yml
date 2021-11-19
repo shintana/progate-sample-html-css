@@ -6,10 +6,10 @@ description: 'This action mention the contributor and reviewer for a pull reques
 outputs:
   contributorID:
     description: "Slack ID of contributor"
-#     value: ${{ steps.get-contributor-slack.outputs.contributorID }}
+    value: ${{ steps.get-contributor-slack.outputs.contributorID }}
   reviewerID:
     description: "Slack ID of reviewer"
-#     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+    value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
     
 runs:
   using: "composite"
