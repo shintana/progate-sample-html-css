@@ -14,14 +14,14 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Check slack ID of contributor
+    - name: Get slack ID of contributor
       shell: bash
       id: get-contributor-slack
       run: |
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=contributorID::${contributorID}"
         
-    - name: Check slack ID of reviewer
+    - name: Get slack ID of reviewer
       shell: bash
       id: get-reviewer-slack
       run: |
