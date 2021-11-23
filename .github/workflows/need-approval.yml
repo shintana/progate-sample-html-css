@@ -10,18 +10,21 @@ jobs:
   notifySlack:
     runs-on: ubuntu-latest
     
-    if: ${{ (github.event.label.name == 'automation') && (github.event.label.name == 'need-approval') }}
+    if: ${{ github.event.label.name == 'automation' && github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
+        if: success()
         uses: ./.github
         id: get-contributor-slack
         
       - name: Extract reviewer ID info
+        if: success()
         uses: ./.github
         id: get-reviewer-slack
           
       - name: Send notification to contributor and reviewer
+        if: success()
         uses: pullreminders/slack-action@master
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
