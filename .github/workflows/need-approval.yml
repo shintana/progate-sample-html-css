@@ -5,12 +5,15 @@ name: Need Approval Notification
 on:
   pull_request:
     types: [ labeled ]
+  label:
+    - automation
+    - need-approval
     
 jobs:
   notifySlack:
     runs-on: ubuntu-latest
     
-    if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
+#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
