@@ -35,5 +35,5 @@ runs:
       shell: bash
       id: get-reviewer
       run: |
-        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq '.pull_request.requested_reviewers')
+        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq '.pull_request.requested_reviewers' | map(.login))
         echo "::set-output name=reviewer::${reviewer}"
