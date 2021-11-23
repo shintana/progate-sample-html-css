@@ -22,7 +22,6 @@ runs:
       id: get-contributor-slack
       run: |
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.pull_request.user.login["id"]')
-        #contributorID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=contributorID::${contributorID}"
         
     - name: Get slack ID of reviewer
@@ -30,7 +29,6 @@ runs:
       id: get-reviewer-slack
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.pull_request.user.login["reviewerID"]')
-        #reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
         echo "::set-output name=reviewerID::${reviewerID}"
     
     - name: Get reviewer
