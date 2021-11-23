@@ -10,9 +10,7 @@ jobs:
   notifySlack:
     runs-on: ubuntu-latest
     
-    if: |
-      ${{ github.event.label.name == 'automation' &&
-      github.event.label.name == 'need-approval' }}
+    if: contains(github.event.label.name, 'automation') && contains(github.event.label.name, 'need-approval') 
       
     steps:
       - uses: actions/checkout@v2
