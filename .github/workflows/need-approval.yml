@@ -13,6 +13,7 @@ jobs:
     if: |
       github.event.label.name == 'automation' &&
       github.event.label.name == 'need-approval'
+      
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
