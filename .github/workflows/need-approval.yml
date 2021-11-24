@@ -9,7 +9,7 @@ on:
 jobs:
   contributorIDinfo:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
+#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
@@ -18,7 +18,7 @@ jobs:
         
   reviewerIDinfo:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
+#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract reviewer ID info
@@ -27,7 +27,7 @@ jobs:
         
   reviewerinfo:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
+#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract reviewer info
