@@ -24,10 +24,6 @@ jobs:
         uses: ./.github
         id: get-reviewer
         
-  notifySlack:
-    runs-on: ubuntu-latest
-    needs: [contributorIDinfo]
-    steps:
       - name: Send notification to contributor and reviewer
         uses: pullreminders/slack-action@master
         env:
