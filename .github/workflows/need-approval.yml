@@ -7,7 +7,7 @@ on:
     types: [ labeled ]
     
 jobs:
-  contributorIDinfo:
+  notifySlack:
     runs-on: ubuntu-latest
     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
