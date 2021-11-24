@@ -9,34 +9,24 @@ on:
 jobs:
   contributorIDinfo:
     runs-on: ubuntu-latest
-#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
+    if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
         uses: ./.github
         id: get-contributor-slack
         
-  reviewerIDinfo:
-    runs-on: ubuntu-latest
-#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
-    steps:
-      - uses: actions/checkout@v2
       - name: Extract reviewer ID info
         uses: ./.github
         id: get-reviewer-slack
         
-  reviewerinfo:
-    runs-on: ubuntu-latest
-#     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
-    steps:
-      - uses: actions/checkout@v2
       - name: Extract reviewer info
         uses: ./.github
         id: get-reviewer
-  
+        
   notifySlack:
     runs-on: ubuntu-latest
-    needs: [contributorIDinfo, reviewerIDinfo, reviewerinfo]
+    needs: [contributorIDinfo]
     steps:
       - name: Send notification to contributor and reviewer
         uses: pullreminders/slack-action@master
