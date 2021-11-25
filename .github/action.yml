@@ -30,6 +30,7 @@ runs:
       run: |
         reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq '.pull_request.requested_reviewers | map(""+ .login) | join(" ")')
         echo "outputnya: $GITHUB_EVENT_PATH" 
+        cho "$(cat $GITHUB_EVENT_PATH)"
         echo "::set-output name=reviewer::${reviewer}"
 
     - name: Get slack ID of reviewer
