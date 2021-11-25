@@ -26,14 +26,16 @@ runs:
     
     - name: Get reviewer of PIC iOS
       shell: bash
-      id: get-reviewer
+      id: get-reviewer-slack
       run: |
         reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
         echo "::set-output name=reviewer::${reviewer}"
-
-    - name: Get slack ID of reviewer
-      shell: bash
-      id: get-reviewer-slack
-      run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
+
+#     - name: Get slack ID of reviewer
+#       shell: bash
+#       id: get-reviewer-slack
+#       run: |
+#         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
+#         echo "::set-output name=reviewerID::${reviewerID}"
