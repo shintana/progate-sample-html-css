@@ -10,7 +10,7 @@ jobs:
   notifySlack:
     runs-on: ubuntu-latest
 #     if: ${{ github.event.label.name == 'automation' }} && {{ github.event.label.name == 'need-approval' }}
-    if: contains(github.event.pull_request.labels.*.name, 'automation')
+#     if: contains(github.event.pull_request.labels.*.name, 'automation')
     steps:
       - uses: actions/checkout@v2
       - name: Extract contributor ID info
