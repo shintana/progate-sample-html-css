@@ -31,6 +31,8 @@ runs:
         export reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${reviewer}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
+        echo "reviewernya: $reviewer" 
+        echo "reviewerID: $reviewerID" 
 
 #     - name: Get slack ID of reviewer
 #       shell: bash
