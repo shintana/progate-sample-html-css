@@ -24,7 +24,7 @@ runs:
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]')
         echo "::set-output name=contributorID::${contributorID}"
         echo "label: ${{ github.event.label.name }}"
-        echo "label2: ${{ github.event.pull_request.labels }}"
+        echo "label2: $(cat ${{ github.event.pull_request.labels }})"
     
     - name: Get reviewer of PIC iOS
       shell: bash
