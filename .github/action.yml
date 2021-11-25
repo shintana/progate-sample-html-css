@@ -24,18 +24,16 @@ runs:
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["id"]')
         echo "::set-output name=contributorID::${contributorID}"
     
-    - name: Get reviewer
+    - name: Get reviewer of PIC iOS
       shell: bash
       id: get-reviewer
       run: |
-        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq '.pull_request.requested_reviewers | map(""+ .login) | join(" ")')
-        echo "outputnya: $GITHUB_EVENT_PATH" 
-        echo "$(cat $GITHUB_EVENT_PATH)"
+        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
         echo "::set-output name=reviewer::${reviewer}"
 
     - name: Get slack ID of reviewer
       shell: bash
       id: get-reviewer-slack
       run: |
-        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.${{ github.event.pull_request.user.login }}["reviewerID"]')
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.${reviewer}["reviewerID"]')
         echo "::set-output name=reviewerID::${reviewerID}"
