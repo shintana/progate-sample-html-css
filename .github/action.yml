@@ -9,7 +9,7 @@ outputs:
     description: "Slack ID of reviewer"
     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
   reviewer:
-    description: "Slack ID of reviewer"
+    description: "Reviewer of PIC iOS"
     value: ${{ steps.get-reviewer.outputs.reviewer }}
     
 runs:
