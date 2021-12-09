@@ -1,6 +1,7 @@
 name: Need Approval Notification
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [ labeled ]
     
