@@ -3,7 +3,7 @@ name: Need Approval Notification
 on:
   pull_request:
     types: [ labeled ]
-    branches: [ develop ]
+    branches: [ main ]
   workflow_dispatch:
     
 jobs:
