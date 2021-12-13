@@ -27,7 +27,7 @@ jobs:
       - name: Send notification to contributor and reviewer
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-#           PR_title: ${{ github.event.pull_request.title }}
-#           PR_link: ${{ github.event.pull_request.html_url }}
+          PR_title: ${{ github.event.pull_request.title }}
+          PR_link: ${{ github.event.pull_request.html_url }}
         uses: ./.github
         id: send-slack-notification
