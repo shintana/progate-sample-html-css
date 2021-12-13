@@ -25,7 +25,6 @@ jobs:
         id: get-reviewer
         
       - name: Send notification to contributor and reviewer
-#         uses: pullreminders/slack-action@master
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: ./.github
