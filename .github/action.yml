@@ -43,6 +43,7 @@ runs:
       shell: bash
       id: send-slack-notification
       run: |
+        echo "outputnya: $SLACK_BOT_TOKEN" 
         curl -X POST \
              -H "Content-type: application/json" \
              -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
