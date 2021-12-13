@@ -6,4 +6,4 @@ LABEL "com.github.actions.icon"="hash"
 LABEL "com.github.actions.color"="gray-dark"
 
 ADD entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./.github/entrypoint.sh"]
