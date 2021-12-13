@@ -43,7 +43,7 @@ runs:
       shell: bash
       id: send-slack-notification
       run: |
-        if [[ test -z "$SLACK_BOT_TOKEN" ]] ; then
+        if test -z "$SLACK_BOT_TOKEN"; then
             echo "Set the SLACK_BOT_TOKEN secret."
             exit 1
         fi
