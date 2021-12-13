@@ -11,6 +11,9 @@ outputs:
   reviewer:
     description: "Reviewer of PIC iOS"
     value: ${{ steps.get-reviewer.outputs.reviewer }}
+  send-slack-notification:
+    description: "Send Slack notification"
+    value: ${{ steps.send-slack-notification}}
     
 runs:
   using: "composite"
@@ -35,3 +38,19 @@ runs:
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
+        
+    - name: Send slack notification
+      shell: bash
+      id: send-slack-notification
+      run: |
+        #!/bin/sh
+        set -eu
+        if test -z "$SLACK_BOT_TOKEN"; then
+            echo "Set the SLACK_BOT_TOKEN secret."
+            exit 1
+        fi
+        curl -X POST \
+             -H "Content-type: application/json" \
+             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+             -d "$*" \
+             https://slack.com/api/chat.postMessage
