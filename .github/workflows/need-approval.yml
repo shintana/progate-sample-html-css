@@ -25,8 +25,8 @@ jobs:
         id: get-reviewer
         
       - name: Send notification to contributor and reviewer
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#         env:
+#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         uses: ./.github
         id: send-slack-notification
 #         with:
