@@ -1,16 +1,16 @@
 name: Mention Contributor and Reviewer
 description: 'This action mention the contributor and reviewer for a pull request.'
     
-# outputs:
-#   contributorID:
-#     description: "Slack ID of contributor"
-#     value: ${{ steps.get-contributor-slack.outputs.contributorID }}
-#   reviewerIOS:
-#     description: "Reviewer of PIC iOS"
-#     value: ${{ steps.get-reviewer.outputs.reviewerIOS }}
-#   reviewerID:
-#     description: "Slack ID of reviewer"
-#     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+outputs:
+  contributorID:
+    description: "Slack ID of contributor"
+    value: ${{ steps.get-contributor-slack.outputs.contributorID }}
+  reviewerIOS:
+    description: "Reviewer of PIC iOS"
+    value: ${{ steps.get-reviewer.outputs.reviewerIOS }}
+  reviewerID:
+    description: "Slack ID of reviewer"
+    value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
     
 runs:
   using: "composite"
