@@ -11,6 +11,9 @@ outputs:
   reviewerID:
     description: "Slack ID of reviewer"
     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+  notif:
+    description: "notif"
+    value: ${{ steps.notif }}
     
 runs:
   using: "composite"
@@ -35,3 +38,9 @@ runs:
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewerIOS }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
+        
+    - name: notif
+      shell: bash
+      id: notif
+      run: |
+        curl -v -H "Content-Type: application/json" -H "Authorization: Bearer xoxb-2709160159057-2696561772226-VLpS9ix1buXQGtJGXkwaGljn" -X POST -d "{\"channel\":\"C02LV4R4X4Z\",\"text\":\"test\"}" https://slack.com/api/chat.postMessage
