@@ -25,6 +25,6 @@ runs:
       run: |
         export reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
         echo "outputnya: $reviewer" 
-        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["$reviewer"]')
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${reviewer}"]')
         echo "reviewerID: $reviewerID" 
         echo "::set-output name=reviewerID::${reviewerID}"
