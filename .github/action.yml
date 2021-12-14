@@ -45,5 +45,5 @@ runs:
       run: |
         curl -v -H "Content-Type: application/json" \
                 -H "Authorization: Bearer xoxb-2709160159057-2696561772226-VLpS9ix1buXQGtJGXkwaGljn" \
-                -X POST -d "{\"channel\":\"C02LV4R4X4Z\",\"text\":\"test\"}" 
+                -X POST -d "{\"channel\":\"C02LV4R4X4Z\",\"text\":\"test\"}" \
                 https://slack.com/api/chat.postMessage
