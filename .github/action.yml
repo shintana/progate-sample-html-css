@@ -11,9 +11,6 @@ outputs:
   reviewer:
     description: "Reviewer of PIC iOS"
     value: ${{ steps.get-reviewer.outputs.reviewer }}
-  send-slack-notification:
-    description: "Send Slack notification"
-    value: ${{ steps.send-slack-notification}}
     
 runs:
   using: "composite"
@@ -38,12 +35,3 @@ runs:
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
-        
-    - name: Send slack notification
-      shell: bash
-      id: send-slack-notification
-      run: |
-        curl -X POST -H 'Authorization: Bearer $SLACK_BOT_TOKEN' \
-            -H 'Content-type: application/json; charset=utf-8' \
-            --data '{\"channel\":\"C02LV4R4X4Z\",\"blocks\": [{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }} <@${{ steps.get-contributor-slack.outputs.contributorID }}>\"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Reviewer*\"},{\"type\":\"mrkdwn\",\"text\":\"<@${{ steps.get-reviewer-slack.outputs.reviewerID }}>\"},{\"type\":\"mrkdwn\",\"text\":\"*Status*\"},{\"type\":\"mrkdwn\",\"text\":\"`Need Approval`\"}]},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }} | View Pull Request>\"}}]}' \
-            https://slack.com/api/chat.postMessage
