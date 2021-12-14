@@ -26,7 +26,7 @@ runs:
       shell: bash
       id: get-reviewer
       run: |
-        reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | ["kopimakpiti", "test"] as $list | select(.login as $a | any ($list[]; . == $a)) | {login} | join(" ")')
+        reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | ["kopimakpiti", "test"] as $pic | select(.login as $username | any ($pic[]; . == $username)) | {login} | join(" ")')
         echo "::set-output name=reviewerIOS::${reviewerIOS}"
 
     - name: Get slack ID of reviewer
