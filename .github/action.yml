@@ -5,12 +5,9 @@ outputs:
   contributorID:
     description: "Slack ID of contributor"
     value: ${{ steps.get-contributor-slack.outputs.contributorID }}
-  reviewerID:
-    description: "Slack ID of reviewer"
-    value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
   reviewer:
     description: "Reviewer of PIC iOS"
-    value: ${{ steps.get-reviewer.outputs.reviewer }}
+    value: ${{ steps.get-reviewer.outputs.reviewerID }}
     
 runs:
   using: "composite"
@@ -26,9 +23,9 @@ runs:
       shell: bash
       id: get-reviewer
       run: |
-        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
-        echo "::set-output name=reviewer::${reviewer}"
-        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
+        export reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
+        echo "outputnya: $reviewer" 
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["$reviewer"]')
         echo "::set-output name=reviewerID::${reviewerID}"
 
 #     - name: Get slack ID of reviewer
