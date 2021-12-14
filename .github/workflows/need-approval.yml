@@ -20,10 +20,6 @@ jobs:
         uses: ./.github
         id: get-reviewer
         
-      - name: Extract reviewer ID info
-        uses: ./.github
-        id: get-reviewer-slack
-        
       - name: Send Slack notification
         uses: pullreminders/slack-action@master
         env:
