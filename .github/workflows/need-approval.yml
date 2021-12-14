@@ -12,13 +12,17 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'automation') && contains(github.event.pull_request.labels.*.name, 'need-approval')
     steps:
       - uses: actions/checkout@v2
-      - name: Extract contributor ID info
+      - name: Extract contributor ID slack
         uses: ./.github
         id: get-contributor-slack
         
       - name: Extract reviewer info
         uses: ./.github
         id: get-reviewer
+        
+      - name: Extract reviewer ID slack
+        uses: ./.github
+        id: get-reviewer-slack
         
       - name: Send Slack notification
         uses: pullreminders/slack-action@master
