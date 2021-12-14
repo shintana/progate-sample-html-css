@@ -28,7 +28,8 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
-          curl -X POST -H 'Authorization: Bearer $SLACK_BOT_TOKEN' \
-               -H 'Content-type: application/json; charset=utf-8' \
+          curl -X POST \
+               -H "Content-type: application/json" \
+               -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
                --data '{\"channel\":\"C02LV4R4X4Z\",\"blocks\": [{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }} <@${{ steps.get-contributor-slack.outputs.contributorID }}>\"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Reviewer*\"},{\"type\":\"mrkdwn\",\"text\":\"<@${{ steps.get-reviewer-slack.outputs.reviewerID }}>\"},{\"type\":\"mrkdwn\",\"text\":\"*Status*\"},{\"type\":\"mrkdwn\",\"text\":\"`Need Approval`\"}]},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }} | View Pull Request>\"}}]}' \
                https://slack.com/api/chat.postMessage
