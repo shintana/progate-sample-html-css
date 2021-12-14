@@ -44,6 +44,6 @@ runs:
       id: notif
       run: |
         curl -v -H "Content-Type: application/json" \
-                -H "Authorization: Bearer xoxb-2709160159057-2696561772226-VLpS9ix1buXQGtJGXkwaGljn" \
+                -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
                 -X POST -d "{\"channel\":\"C02LV4R4X4Z\",\"text\":\"test\"}" \
                 https://slack.com/api/chat.postMessage
