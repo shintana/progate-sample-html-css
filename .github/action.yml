@@ -5,9 +5,12 @@ outputs:
   contributorID:
     description: "Slack ID of contributor"
     value: ${{ steps.get-contributor-slack.outputs.contributorID }}
-  reviewerID:
+  reviewerIOS:
     description: "Reviewer of PIC iOS"
-    value: ${{ steps.get-reviewer.outputs.reviewerID }}
+    value: ${{ steps.get-reviewer.outputs.reviewerIOS }}
+  reviewerID:
+    description: "Slack ID of reviewer"
+    value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
     
 runs:
   using: "composite"
@@ -19,12 +22,16 @@ runs:
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]')
         echo "::set-output name=contributorID::${contributorID}"
     
-    - name: Get reviewer of PIC iOS
+    - name: Get reviewer of PIC iOS only
       shell: bash
       id: get-reviewer
       run: |
-        reviewer=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("ko")) | {login} | join(" ")')
-        echo "outputnya: $reviewer" 
-        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["$reviewer"]')
-        echo "reviewerID: $reviewerID" 
+        reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | select(.login | contains("veni") or contains("ditra") or contains("L1EZ") or contains("shinta")) | {login} | join(" ")')
+        echo "::set-output name=reviewerIOS::${reviewerIOS}"
+
+    - name: Get slack ID of reviewer
+      shell: bash
+      id: get-reviewer-slack
+      run: |
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewerIOS }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
