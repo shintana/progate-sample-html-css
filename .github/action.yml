@@ -32,6 +32,8 @@ runs:
     - name: Get slack ID of reviewer
       shell: bash
       id: get-reviewer-slack
+      needs:
+        get-reviewer
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
