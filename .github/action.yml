@@ -45,6 +45,6 @@ runs:
       run: |
         curl --request POST \
              --header 'Content-type: application/json' \
-             --header 'Authorization: Bearer $SLACK_BOT_TOKEN' \
+             --header 'Authorization: Bearer xoxb-2709160159057-2696561772226-VLpS9ix1buXQGtJGXkwaGljn' \
              --url 'https://slack.com/api/chat.postMessage' \
              --data '{\"channel\":\"C02LV4R4X4Z\",\"blocks\": [{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"${{ github.event.pull_request.title }} <@${{ steps.get-contributor-slack.outputs.contributorID }}>\"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Reviewer*\"},{\"type\":\"mrkdwn\",\"text\":\"<@${{ steps.get-reviewer-slack.outputs.reviewerID }}>\"},{\"type\":\"mrkdwn\",\"text\":\"*Status*\"},{\"type\":\"mrkdwn\",\"text\":\"`Need Approval`\"}]},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<${{ github.event.pull_request.html_url }} | View Pull Request>\"}}]}'
