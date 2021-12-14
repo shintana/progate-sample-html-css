@@ -11,6 +11,9 @@ outputs:
   reviewer:
     description: "Reviewer of PIC iOS"
     value: ${{ steps.get-reviewer.outputs.reviewer }}
+  notif:
+    description: "notif"
+    value: ${{ steps.notif }}
     
 runs:
   using: "composite"
@@ -35,3 +38,14 @@ runs:
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewer }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
+        
+    - name: Notif
+      shell: bash
+      id: notif
+      run: |
+        curl -X POST \
+             -H "Content-type: application/json" \
+             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+             -d "$*" \
+             https://slack.com/api/chat.postMessage
+        
