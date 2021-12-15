@@ -43,7 +43,4 @@ runs:
       shell: bash
       id: notif
       run: |
-        curl -v -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
-                -X POST -d "{\"channel\":\"C02LV4R4X4Z\",\"blocks\": [{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"$pr_title <@$contributor>\"}},{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Reviewer*\"},{\"type\":\"mrkdwn\",\"text\":\"<@$reviewer>\"},{\"type\":\"mrkdwn\",\"text\":\"*Status*\"},{\"type\":\"mrkdwn\",\"text\":\""'`Need Approval`'"\"}]},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"<$link | View Pull Request>\"}}]}" \
-                https://slack.com/api/chat.postMessage
+        curl https://slack.com/api/chat.postMessage -H "Content-type:application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN" -X POST -d @blockbuilder.json
