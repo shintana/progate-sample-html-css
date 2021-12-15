@@ -47,7 +47,7 @@ runs:
         curl https://slack.com/api/chat.postMessage -d "$(cat <<EOF
         {
             "channel": "C02LV4R4X4Z",
-            "blocks": $test,
+            "blocks": "$test",
         }
         EOF
         )" -H "Content-Type: application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN"
