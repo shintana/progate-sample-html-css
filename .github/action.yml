@@ -42,8 +42,4 @@ runs:
     - name: notif
       shell: cmd
       id: notif
-      run: |
-        curl -i \
-             -H "Content-type:application/json" \
-             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
-             -X POST --data "$(generate_post_data)" "https://slack.com/api/chat.postMessage"
+      run: ./.github/test.sh
