@@ -11,9 +11,6 @@ outputs:
   reviewerID:
     description: "Slack ID of reviewer"
     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
-  notif:
-    description: "notif"
-    value: ${{ steps.notif }}
     
 runs:
   using: "composite"
@@ -38,7 +35,3 @@ runs:
       run: |
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewerIOS }}"]')
         echo "::set-output name=reviewerID::${reviewerID}"
-        
-    - name: notif
-      id: notif
-      run: ./.github/test.sh
