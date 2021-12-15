@@ -43,4 +43,4 @@ runs:
       shell: bash
       id: notif
       run: |
-        curl https://slack.com/api/chat.postMessage -H "Content-type:application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN" -X POST -d @blockbuilder.json
+        curl https://slack.com/api/chat.postMessage -H "Content-type:application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN" -X POST -d @./.github/blockbuilder.json
