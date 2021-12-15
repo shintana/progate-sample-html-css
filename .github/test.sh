@@ -43,3 +43,5 @@ generate_post_data()
 }
 EOF
 }
+curl -i -H "Content-type:application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN" -X POST --data "$(generate_post_data)" "https://slack.com/api/chat.postMessage"
+
