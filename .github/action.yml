@@ -50,4 +50,4 @@ runs:
             "blocks": $test,
         }
         EOF
-        )" -H 'Content-Type: application/json' -H "Authorization: Bearer $SLACK_BOT_TOKEN"
+        )" -H "Content-Type: application/json" -H "Authorization: Bearer $SLACK_BOT_TOKEN"
