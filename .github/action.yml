@@ -40,6 +40,5 @@ runs:
         echo "::set-output name=reviewerID::${reviewerID}"
         
     - name: notif
-      shell: cmd
       id: notif
       run: ./.github/test.sh
