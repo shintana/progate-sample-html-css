@@ -1,4 +1,4 @@
-name: Need Approval Notification
+name: PR Approval Notification
 
 on:
   pull_request:
