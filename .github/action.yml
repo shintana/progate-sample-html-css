@@ -33,5 +33,5 @@ runs:
       shell: bash
       id: get-reviewer-slack
       run: |
-        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewerIOS }}"]')
+        reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["${{ steps.get-reviewer.outputs.reviewerIOS }}"]' | tr -d \")
         echo "::set-output name=reviewerID::${reviewerID}"
