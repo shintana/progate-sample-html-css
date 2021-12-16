@@ -16,9 +16,9 @@ jobs:
         uses: ./.github
         id: get-contributor-slack
         
-      - name: Extract reviewer info
-        uses: ./.github
-        id: get-reviewer
+#       - name: Extract reviewer info
+#         uses: ./.github
+#         id: get-reviewer
         
       - name: Extract reviewer ID slack
         uses: ./.github
