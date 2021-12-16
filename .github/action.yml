@@ -5,9 +5,6 @@ outputs:
   contributorID:
     description: "Slack ID of contributor"
     value: ${{ steps.get-contributor-slack.outputs.contributorID }}
-#   reviewerIOS:
-#     description: "Reviewer of PIC iOS"
-#     value: ${{ steps.get-reviewer.outputs.reviewerIOS }}
   reviewerID:
     description: "Slack ID of reviewer"
     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
@@ -24,13 +21,6 @@ runs:
       run: |
         contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]' | tr -d \")
         echo "::set-output name=contributorID::${contributorID}"
-    
-#     - name: Get reviewer of PIC iOS only
-#       shell: bash
-#       id: get-reviewer
-#       run: |
-#         reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | ["kopimakpiti", "test"] as $pic | select(.login as $username | any ($pic[]; . == $username)) | {login} | join(" ")')
-#         echo "::set-output name=reviewerIOS::${reviewerIOS}"
 
     - name: Get slack ID of reviewer
       shell: bash
@@ -38,7 +28,6 @@ runs:
       run: |
         export reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | ["kopimakpiti", "test"] as $pic | select(.login as $username | any ($pic[]; . == $username)) | {login} | join(" ")')
         reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["'$reviewerIOS'"]' | tr -d \")
-        echo "outputnya: $reviewerIOS"
         echo "::set-output name=reviewerID::${reviewerID}"
      
     - name: Notif
