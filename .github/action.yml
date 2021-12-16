@@ -19,7 +19,7 @@ runs:
       shell: bash
       id: get-contributor-slack
       run: |
-        contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]')
+        contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]' | tr -d \")
         echo "::set-output name=contributorID::${contributorID}"
     
     - name: Get reviewer of PIC iOS only
