@@ -8,9 +8,6 @@ outputs:
   reviewerID:
     description: "Slack ID of reviewer"
     value: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
-  notif:
-    description: "notif"
-    value: ${{ steps.notif }}
     
 runs:
   using: "composite"
