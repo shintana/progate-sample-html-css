@@ -9,7 +9,7 @@ fi
 # data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
 # data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'${{github.event.pull_request.title}}' <@$CONTRIBUTOR_ID>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@$REVIEWER_ID>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<$PR_LINK | View Pull Request>"}}]}'
 # data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"$CONTRIBUTOR_ID"}}]}'
-data='{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"$PR_TITLE\"}}]}'
+# data='{\"channel\":\"C02LV4R4X4Z\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"$PR_TITLE\"}}]}'
 
 echo "outputnya: $CONTRIBUTOR_ID"
 curl -X POST \
