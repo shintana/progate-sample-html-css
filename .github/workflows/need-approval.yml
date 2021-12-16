@@ -31,4 +31,5 @@ jobs:
           PR_LINK: ${{ github.event.pull_request.html_url }} 
           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
-        run: sh ./.github/test.sh
+        uses: ./.github
+        id: notif
