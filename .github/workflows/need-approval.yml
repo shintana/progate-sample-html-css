@@ -28,4 +28,4 @@ jobs:
           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
         uses: ./.github
-        id: notif
+        id: send-notification
