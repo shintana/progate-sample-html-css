@@ -22,7 +22,7 @@ jobs:
         
       - name: Send Slack notification
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_LINK: ${{ github.event.pull_request.html_url }} 
           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
