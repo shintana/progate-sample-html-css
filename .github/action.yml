@@ -34,6 +34,12 @@ runs:
         data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
         curl -X POST \
              -H "Content-type: application/json" \
-             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
              -d "$data" \
-             https://slack.com/api/chat.postMessage
+             https://hooks.slack.com/services/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
+#       run: |
+#         data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
+#         curl -X POST \
+#              -H "Content-type: application/json" \
+#              -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+#              -d "$data" \
+#              https://slack.com/api/chat.postMessage
