@@ -11,15 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-  get-reviewer:
+  get-contributor:
     needs: checkout-repo
     runs-on: ubuntu-latest
     steps:
       - name: Extract reviewer ID slack
         uses: ./.github
         id: get-contributor-slack
-  get-contributor:
-    needs: get-reviewer
+  get-reviewer:
+    needs: get-contributor
     runs-on: ubuntu-latest
     steps:
       - name: Extract contributor ID slack
