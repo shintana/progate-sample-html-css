@@ -7,56 +7,33 @@ on:
   workflow_dispatch:
     
 jobs:
-  checkout-repo:
+  notifySlack:
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'automation')
     steps:
       - uses: actions/checkout@v2
-  get-contributor:
-    needs: checkout-repo
-    runs-on: ubuntu-latest
-    steps:
-      - name: Extract reviewer ID slack
-        uses: ./.github
-        id: get-contributor-slack
-  get-reviewer:
-    needs: get-contributor
-    runs-on: ubuntu-latest
-    steps:
       - name: Extract contributor ID slack
-        uses: ./.github
+        id: get-contributor-slack
+        run: |
+          contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]' | tr -d \")
+          echo "::set-output name=contributorID::${contributorID}"
+        
+      - name: Extract reviewer ID slack
         id: get-reviewer-slack
-  send-slack:
-    needs: get-reviewer
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send notification to slack
+        run: |
+          export reviewerIOS=$(echo "$(cat $GITHUB_EVENT_PATH)" | jq -r '.pull_request.requested_reviewers[] | ["snarizky", "test", "123"] as $pic | select(.login as $username | any ($pic[]; . == $username)) | {login} | join(" ")')
+          reviewerID=$(echo "$(cat ./.github/test.json)" | jq '.reviewer["'$reviewerIOS'"]' | tr -d \")
+          echo "::set-output name=reviewerID::${reviewerID}"
+        
+      - name: Send Slack notification
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_LINK: ${{ github.event.pull_request.html_url }} 
           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
-        uses: ./.github
-        id: send-notification
-      
-#   notifySlack:
-#     runs-on: ubuntu-latest
-#     if: contains(github.event.pull_request.labels.*.name, 'automation')
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Extract contributor ID slack
-#         uses: ./.github
-#         id: get-contributor-slack
-        
-#       - name: Extract reviewer ID slack
-#         uses: ./.github
-#         id: get-reviewer-slack
-        
-#       - name: Send Slack notification
-#         env:
-# #           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-#           PR_TITLE: ${{ github.event.pull_request.title }}
-#           PR_LINK: ${{ github.event.pull_request.html_url }} 
-#           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
-#           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
-#         uses: ./.github
-#         id: send-notification
+        run: |
+          data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
+          curl -X POST \
+               -H "Content-type: application/json" \
+               -d "$data" \
+               https://hooks.slack.com/services/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
