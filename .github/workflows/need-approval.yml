@@ -7,25 +7,56 @@ on:
   workflow_dispatch:
     
 jobs:
-  notifySlack:
+  checkout-repo:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'automation')
     steps:
       - uses: actions/checkout@v2
-      - name: Extract contributor ID slack
-        uses: ./.github
-        id: get-contributor-slack
-        
+  get-reviewer:
+    needs: checkout-repo
+    runs-on: ubuntu-latest
+    steps:
       - name: Extract reviewer ID slack
         uses: ./.github
+        id: get-contributor-slack
+  get-contributor:
+    needs: get-reviewer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract contributor ID slack
+        uses: ./.github
         id: get-reviewer-slack
-        
-      - name: Send Slack notification
-        env:
-#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_LINK: ${{ github.event.pull_request.html_url }} 
-          CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
-          REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+  send-slack:
+    needs: get-contributor
+    runs-on: ubuntu-latest
+    env:
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        PR_LINK: ${{ github.event.pull_request.html_url }} 
+        CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
+        REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+    steps:
+      - name: Send notification to slack
         uses: ./.github
         id: send-notification
+      
+#   notifySlack:
+#     runs-on: ubuntu-latest
+#     if: contains(github.event.pull_request.labels.*.name, 'automation')
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Extract contributor ID slack
+#         uses: ./.github
+#         id: get-contributor-slack
+        
+#       - name: Extract reviewer ID slack
+#         uses: ./.github
+#         id: get-reviewer-slack
+        
+#       - name: Send Slack notification
+#         env:
+# #           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#           PR_TITLE: ${{ github.event.pull_request.title }}
+#           PR_LINK: ${{ github.event.pull_request.html_url }} 
+#           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
+#           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
+#         uses: ./.github
+#         id: send-notification
