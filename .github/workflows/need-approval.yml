@@ -28,13 +28,13 @@ jobs:
   send-slack:
     needs: get-reviewer
     runs-on: ubuntu-latest
-    env:
-        PR_TITLE: ${{ github.event.pull_request.title }}
-        PR_LINK: ${{ github.event.pull_request.html_url }} 
-        CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
-        REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
     steps:
       - name: Send notification to slack
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_LINK: ${{ github.event.pull_request.html_url }} 
+          CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
+          REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
         uses: ./.github
         id: send-notification
       
