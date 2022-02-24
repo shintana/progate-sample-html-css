@@ -16,10 +16,6 @@ jobs:
         id: get-contributor-slack
         run: |
           contributorID=$(echo "$(cat ./.github/test.json)" | jq '.contributor["${{ github.event.pull_request.user.login }}"]' | tr -d \")
-          if [ contributorID == null ]
-          then
-            contributorID="unknown"
-          fi
           echo "::set-output name=contributorID::${contributorID}"
         
       - name: Extract reviewer ID slack
