@@ -36,4 +36,4 @@ jobs:
           curl -X POST \
                -H "Content-type: application/json" \
                -d "$data" \
-               https://hooks.slack.com/services/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
+               https://hooks.slack.com/services/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
