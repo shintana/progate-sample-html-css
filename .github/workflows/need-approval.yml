@@ -32,7 +32,7 @@ jobs:
           CONTRIBUTOR_ID: ${{ steps.get-contributor-slack.outputs.contributorID }}
           REVIEWER_ID: ${{ steps.get-reviewer-slack.outputs.reviewerID }}
         run: |
-          data='{"channel":"C02LV4R4X4Z","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
+          data='{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"'$PR_TITLE' <@'$CONTRIBUTOR_ID'>"}},{"type":"section","fields":[{"type":"mrkdwn","text":"*Reviewer*"},{"type":"mrkdwn","text":"<@'$REVIEWER_ID'>"},{"type":"mrkdwn","text":"*Status*"},{"type":"mrkdwn","text":"`Need Approval`"}]},{"type":"section","text":{"type":"mrkdwn","text":"<'$PR_LINK' | View Pull Request>"}}]}'
           curl -X POST \
                -H "Content-type: application/json" \
                -d "$data" \
